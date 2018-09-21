@@ -5,5 +5,9 @@ module.exports = function (app) {
 			pm2: true
 		}
 	};
+	// 线上环境开启缓存
+	exports.view = {
+		cache: false
+	};
 	return exports;
 };

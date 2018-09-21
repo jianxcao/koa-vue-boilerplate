@@ -15,6 +15,7 @@ module.exports = function (app) {
 	// 模板配置
 	exports.view = {
 		root: path.join(app.baseDir, 'app/view'),
+		// 文件将会被读取到内存，不在从磁盘读取
 		cache: false,
 		defaultExtension: '.html',
 		defaultViewEngine: '',

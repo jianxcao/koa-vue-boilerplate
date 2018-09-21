@@ -31,6 +31,8 @@ module.exports = app => {
 			};
 		}
 		const render = app.vue.render.bind(app.vue);
+		// 强制修改模板引擎不缓存模板
+		app.vue.bundleCache = false;
 		// 覆盖 render去内存中读取
 		app.vue.render = async (name, context, options) => {
 			const filePath = path.isAbsolute(name) ? name : path.join(app.config.view.root[0], name);
