@@ -23,16 +23,15 @@ const readFile = fileName => new Promise((resolve, reject) => {
 // 只有在dev环境下需要处理的东西
 module.exports = app => {
 	const logger = app.logger;
-	if (env === 'development') {
-		// 覆盖view中查找模板的方法
-		if (app.view) {
-			app.view.resolve = function (name) {
-				return Promise.resolve(name);
-			};
-		}
-		const render = app.vue.render.bind(app.vue);
+	const hot = process.env.HOT;
+	if (env === 'development' && hot) {
 		// 强制修改模板引擎不缓存模板
 		app.vue.bundleCache = false;
+		// 覆盖view中查找模板的方法
+		app.view.resolve = function (name) {
+			return Promise.resolve(name);
+		};
+		const render = app.vue.render.bind(app.vue);
 		// 覆盖 render去内存中读取
 		app.vue.render = async (name, context, options) => {
 			const filePath = path.isAbsolute(name) ? name : path.join(app.config.view.root[0], name);

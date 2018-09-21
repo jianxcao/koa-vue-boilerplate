@@ -120,7 +120,6 @@ function readMemFile(compilers = [], fileName) {
 	}
 	return content;
 }
-
 // 主入口
 async function main() {
 	try {
@@ -131,7 +130,6 @@ async function main() {
 			switch (msg.action) {
 			case constant.EVENT_WEBPACK_FILE_READ: {
 				const res = readMemFile(compilers, msg.fileName);
-				console.log('send', msg.fileName);
 				process.nextTick(() => {
 					worker.send({
 						action: constant.EVENT_WEBPACK_MESSAGE_FILE,

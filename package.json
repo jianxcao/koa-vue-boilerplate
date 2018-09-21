@@ -15,9 +15,9 @@
   "main": "index.js",
   "scripts": {
     "init": "npm install --no-optional -s && pm2 install pm2-intercom",
-    "lint": "eslint --ext .js,.vue app --fix --cache",
-		"dev": "cross-env NODE_ENV=development node ./build/dev.js",
-		"debug": "cross-env NODE_ENV=development node ./build/dev.js --inspect",
+		"lint": "eslint --ext .js,.vue app --fix --cache",
+		"dev": "cross-env HOT=hot NODE_ENV=development node ./build/dev.js",
+		"debug": "cross-env HOT=hot NODE_ENV=development node ./build/dev.js --inspect",
     "debug:watch": "npm run clean && cross-env NODE_ENV=development node --inspect ./build/watch.js",
     "dev:watch": "npm run clean && cross-env NODE_ENV=development node ./build/watch.js",
     "build": "npm run clean && easy -c --devtool nosources-source-map -f build/client.js build prod && easy -f build/server.js build prod",
