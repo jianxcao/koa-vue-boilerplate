@@ -8,5 +8,12 @@ module.exports = merge(baseWebpackConfig, {
 	type: 'client',
 	buildPath: path.resolve(appPath, 'public'),
 	publicPath: 'public',
-	devtool: 'eval-source-map'
+	devtool: 'eval-source-map',
+	plugins: {
+		manifest: {
+			args: {
+				filepath: path.resolve(__dirname, '../config/manifest.json')
+			}
+		}
+	}
 });

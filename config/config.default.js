@@ -50,7 +50,7 @@ module.exports = function (app) {
 		// renderToClient时候用
 		layout: path.join(app.baseDir, 'app/web/view/layout.html'),
 		// 根据mainfest注入资源- 在编译的时候需将配置文件生成到这个目录
-		manifest: path.join(app.baseDir, 'public/manifest.json'),
+		manifest: path.join(app.baseDir, 'config/manifest.json'),
 		injectHeadRegex: /(<\/head>)/i,
 		injectBodyRegex: /(<\/body>)/i,
 		injectCss: true,

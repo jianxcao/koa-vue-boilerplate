@@ -13,12 +13,16 @@ const extend = {
 	env: 'test',
 	hash: false,
 	watch: true,
+	plugins: {
+		hashModule: false
+	},
 	performance: {
 		maxAssetSize: 2000000,
 		maxEntrypointSize: 2000000
 	},
 };
-
+// console.dir(merge(client, extend).plugins);
+// console.log(EasyWebpack.getWebWebpackConfig(merge(client, extend)));
 function compile() {
 	return new Promise((resove, reject) => {
 		webpack([
