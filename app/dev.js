@@ -10,14 +10,14 @@ const readFile = fileName => new Promise((resolve, reject) => {
 		// 收到消息，并且该消息的文件是当前需要的文件
 		if (msg && msg.action === Constant.EVENT_WEBPACK_MESSAGE_FILE && msg.fileName === fileName) {
 			resolve(msg.content);
-			process.off('message', handleMsg);
+			process.removeListener('message', handleMsg);
 		}
 	};
 	process.on('message', handleMsg);
 	// 超过5s拿不出数据，认为没拿到
 	setTimeout(() => {
 		resolve('');
-		process.off('message', handleMsg);
+		process.removeListener('message', handleMsg);
 	}, 5000);
 });
 // 只有在dev环境下需要处理的东西

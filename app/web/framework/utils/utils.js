@@ -1,12 +1,11 @@
 export function removeHTML(input) {
-  return input;
+	return input;
 }
 
-
 export function formatDate(input) {
-  return input;
+	return input;
 }
 
 export function getUrlParameter(url) {
-  return url;
+	return url;
 }
