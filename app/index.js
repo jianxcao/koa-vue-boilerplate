@@ -61,11 +61,10 @@ app.use(timeAnalyze);
 app
   .use(router.routes())
   .use(router.allowedMethods());
-
 onerror(app);
 
 app.on('error', error => {
-	log.error('server error:' + error);
+	log.error('server error:', error);
 });
 
 process.on('uncatchException', e => {

@@ -6,9 +6,9 @@ const content = '<div id="app"><MainLayout><div slot="main"><slot></slot></div><
 const template = `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{{title}}</title>
-  <meta name="keywords" :content="keywords">
-  <meta name="description" :content="description">
+  <title>{{vTitle}}</title>
+  <meta name="keywords" :content="vKeywords">
+  <meta name="description" :content="vDescription">
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -29,10 +29,10 @@ export default {
 			return this.$root.title || this.title || ' ';
 		},
 		vKeywords() {
-			return this.$root.keywords || this.keywords || 'server render';
+			return this.$root.keywords || this.keywords;
 		},
 		vDescription() {
-			return this.$root.description || this.description || 'server render';
+			return this.$root.description || this.description;
 		},
 		baseClass() {
 			return this.$root.baseClass;

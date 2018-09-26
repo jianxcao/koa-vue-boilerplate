@@ -6,7 +6,10 @@ const router = new Router();
 
 router.get(['/', '/home'], async ctx => {
 	await ctx.render('home/home.js', {
-		test: '123'
+		test: '1233',
+		title: 'koa-vue-webpack-home',
+		keywords: 'koa vue webpack',
+		description: 'koa-vue-webpack'
 	});
 	logger.debug(ctx.csrf);
 });
