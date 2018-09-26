@@ -175,7 +175,9 @@
         }],
 
        // 可以在语句中使用require
-		"global-require": 1,
-		"class-methods-use-this": 0
+			"global-require": 1,
+			"class-methods-use-this": 0,
+			"no-confusing-arrow": 0,
+			"no-return-await": 0
     }
 }
