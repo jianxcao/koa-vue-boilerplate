@@ -22,3 +22,7 @@ export default {
 	}
 };
 </script>
+
+<style lang="less">
+	@import '~asset/style/global.less';
+</style>

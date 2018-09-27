@@ -9,8 +9,8 @@
     </div>
   </header>
 </template>
-<style>
-@import "./header.css";
+<style lang="less">
+@import "./header.less";
 </style>
 <script type="text/babel">
 export default {

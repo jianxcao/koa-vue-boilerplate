@@ -8,8 +8,8 @@
     </div>
   </footer>
 </template>
-<style>
-@import "./footer.css";
+<style lang="less">
+@import "./footer.less";
 </style>
 <script type="text/babel">
 export default {};

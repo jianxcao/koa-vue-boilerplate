@@ -88,6 +88,8 @@
     "eslint-plugin-vue": "^2.1.0",
     "imagemin-webpack-plugin": "^2.2.0",
     "kcors": "^2.2.2",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "nodemon": "^1.18.3",
     "pre-commit": "^1.2.2",
     "webpack": "^4.19.1"

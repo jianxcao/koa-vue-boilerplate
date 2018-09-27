@@ -24,11 +24,12 @@ const extend = {
 // console.dir(merge(client, extend).plugins);
 // console.log(EasyWebpack.getWebWebpackConfig(merge(client, extend)));
 function compile() {
+	const configItems = [
+		EasyWebpack.getNodeWebpackConfig(merge(server, extend)),
+		EasyWebpack.getWebWebpackConfig(merge(client, extend))
+	];
 	return new Promise((resove, reject) => {
-		webpack([
-			EasyWebpack.getNodeWebpackConfig(merge(server, extend)),
-			EasyWebpack.getWebWebpackConfig(merge(client, extend))
-		], (err, stats) => {
+		webpack(configItems, (err, stats) => {
 			if (err) {
 				reject(err);
 				return;
