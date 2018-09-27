@@ -14,6 +14,7 @@ const chalk = require('chalk');
 const devMiddleware = require('./dev-middleware');
 const hotMiddleware = require('./hot-middleware');
 const constant = require('../app/constant');
+const { notifyStats } = require('./utils');
 
 const merge = EasyWebpack.merge;
 const extend = {
@@ -39,8 +40,9 @@ function compile() {
 			publicPath: webpackCfg.output.publicPath,
 		};
 		createWebpackServer(compiler, serverConfig);
-		compiler.hooks.done.tap('webpack-build-done', compilation => {
+		compiler.hooks.done.tap('webpack-build-done', stats => {
 			res(compiler);
+			notifyStats(stats);
 		});
 	}));
 	return Promise.all(res);

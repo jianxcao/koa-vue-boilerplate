@@ -24,8 +24,5 @@ module.exports = {
 	node: {
 		console: true
 	},
-	optimization: {},
-	done() {
-		console.log('如果启动成功后, Chrome控制台浏览器脚本报错, 可以尝试执行 npm run clean 清除缓存解决');
-	}
+	optimization: {}
 };
