@@ -24,35 +24,37 @@ const readFile = fileName => new Promise((resolve, reject) => {
 module.exports = app => {
 	const logger = app.logger;
 	const hot = process.env.HOT;
-	if (env === 'development' && hot) {
+	if (env === 'development') {
 		// 强制修改模板引擎不缓存模板
 		app.vue.bundleCache = false;
-		// 覆盖view中查找模板的方法
-		app.view.resolve = function (name) {
-			return Promise.resolve(name);
-		};
-		const render = app.vue.render.bind(app.vue);
-		// 覆盖 render去内存中读取
-		app.vue.render = async (name, context, options) => {
-			const filePath = path.isAbsolute(name) ? name : path.join(app.config.view.root[0], name);
-			const content = await readFile(filePath);
-			logger.debug('read vue template file %s', filePath);
-			return render(content, context, options);
-		};
-		app.use(async (ctx, next) => {
-			const ext = path.extname(ctx.url).replace(/^\./, '');
-			if (ext && exts.find(cur => cur === ext)) {
-				logger.debug('read webpack memory file: %s', ctx.url);
-				const content = await readFile(ctx.url);
-				const mimeType = ext ? mime.getType(ctx.url) : 'text/html';
-				ctx.set('content-type', mimeType);
-				if (content) {
-					ctx.body = content;
-					ctx.status = 200;
-					return;
+		if (hot) {
+			// 覆盖view中查找模板的方法
+			app.view.resolve = function (name) {
+				return Promise.resolve(name);
+			};
+			const render = app.vue.render.bind(app.vue);
+			// 覆盖 render去内存中读取
+			app.vue.render = async (name, context, options) => {
+				const filePath = path.isAbsolute(name) ? name : path.join(app.config.view.root[0], name);
+				const content = await readFile(filePath);
+				logger.debug('read vue template file %s', filePath);
+				return render(content, context, options);
+			};
+			app.use(async (ctx, next) => {
+				const ext = path.extname(ctx.url).replace(/^\./, '');
+				if (ext && exts.find(cur => cur === ext)) {
+					logger.debug('read webpack memory file: %s', ctx.url);
+					const content = await readFile(ctx.url);
+					const mimeType = ext ? mime.getType(ctx.url) : 'text/html';
+					ctx.set('content-type', mimeType);
+					if (content) {
+						ctx.body = content;
+						ctx.status = 200;
+						return;
+					}
 				}
-			}
-			await next();
-		});
+				await next();
+			});
+		}
 	}
 };
