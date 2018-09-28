@@ -6,7 +6,7 @@
   </div>
 </template>
 <style>
-@import "content.css";
+@import "content.less";
 </style>
 <script type="text/babel">
 export default {

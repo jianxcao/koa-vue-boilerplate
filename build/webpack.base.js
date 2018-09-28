@@ -17,12 +17,27 @@ module.exports = {
 		component: 'app/web/component',
 		framework: 'app/web/framework'
 	},
-	loaders: {},
+	loaders: {
+		less: true, // 开启less， 默认禁用
+	},
 	plugins: {
 		serviceworker: false
 	},
 	node: {
 		console: true
 	},
-	optimization: {}
+	optimization: {
+		// splitChunks: {
+		// 	cacheGroups: {
+		// 		'default': false,
+		// 		'css/global': {
+		// 			name: 'css/global',
+		// 			test: /global/,
+		// 			reuseExistingChunk: true,
+		// 			enforce: true,
+		// 		}
+		// 	},
+		// },
+		// occurrenceOrder: true
+	}
 };
