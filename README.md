@@ -6,7 +6,8 @@
 - npm run debug debug模式启动服务器，带热更新
 - npm run dev:watch 以watch模式启动，文件落到磁盘上
 - npm run debug:watch 以watch模式启动debug，文件落在磁盘上
-
+- npm run build build代码，准备上线
+- npm run start pm2启动服务器
 
 ## 项目结构说明
 
