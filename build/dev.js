@@ -132,11 +132,9 @@ async function main() {
 		const compilers = await compile();
 		// 监听消息，如果Worker需要文件，则给worker文件
 		cluster.on('message', (worker, msg) => {
-			console.log('**** recevice msg', msg);
 			switch (msg.action) {
 			case constant.EVENT_WEBPACK_FILE_READ: {
 				const res = readMemFile(compilers, msg.fileName);
-				console.log('cluster send file:', res.length);
 				worker.send({
 					action: constant.EVENT_WEBPACK_MESSAGE_FILE,
 					content: res,

@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<div>content{{test}}1</div>
+		<div>home{{test}}</div>
 	</Layout>
 </template>
 <script>

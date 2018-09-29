@@ -5,7 +5,7 @@
     </div>
   </div>
 </template>
-<style>
+<style lang="less">
 @import "content.less";
 </style>
 <script type="text/babel">

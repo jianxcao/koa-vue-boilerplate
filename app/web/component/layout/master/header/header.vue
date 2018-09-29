@@ -3,8 +3,8 @@
     <div class="container">
       <h1><a href="/" class="router-link-active">Egg + Vue</a></h1>
       <ul class="nav">
-        <li class="nav-item"><a href="/" :class="{'active' : selectedMenu === '/'}">server home</a></li>
-				<li class="nav-item"><a href="/test" :class="{'active' : selectedMenu === '/'}">client test</a></li>
+        <li class="nav-item"><a href="/" :class="{'active' : selectedMenu === '/'}">server render home</a></li>
+				<li class="nav-item"><a href="/about" :class="{'active' : selectedMenu === '/'}">render by client</a></li>
       </ul>
     </div>
   </header>
