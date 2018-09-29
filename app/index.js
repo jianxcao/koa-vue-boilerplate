@@ -45,6 +45,7 @@ app.use(koaView(app));
 app.use(vueView(app));
 
 dev(app);
+
 // 配置可以跨域的请求
 app.use(convert(cors()));
 

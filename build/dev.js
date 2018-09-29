@@ -88,11 +88,13 @@ function createWebpackServer(compiler, config, webpackConfigItem = {}) {
 		app.use(devMiddleware(compiler, devOptions));
 		if (hot === undefined || hot) {
 			app.use(hotMiddleware(compiler, {
-				log: false,
 				reload: true
 			}));
 		}
 	}
+	app.on('error', error => {
+		console.error('server error:', error);
+	});
 	app.listen(port, err => {
 		if (!err && compiler) {
 			const ip = getIp();
@@ -117,6 +119,7 @@ function readMemFile(compilers = [], fileName) {
 				return content;
 			}
 		} catch (e) {
+			// console.error('read file error', e);
 			content = '';
 		}
 	}
@@ -129,15 +132,15 @@ async function main() {
 		const compilers = await compile();
 		// 监听消息，如果Worker需要文件，则给worker文件
 		cluster.on('message', (worker, msg) => {
+			console.log('**** recevice msg', msg);
 			switch (msg.action) {
 			case constant.EVENT_WEBPACK_FILE_READ: {
 				const res = readMemFile(compilers, msg.fileName);
-				process.nextTick(() => {
-					worker.send({
-						action: constant.EVENT_WEBPACK_MESSAGE_FILE,
-						content: res,
-						fileName: msg.fileName
-					});
+				console.log('cluster send file:', res.length);
+				worker.send({
+					action: constant.EVENT_WEBPACK_MESSAGE_FILE,
+					content: res,
+					fileName: msg.fileName
 				});
 			}
 				break;

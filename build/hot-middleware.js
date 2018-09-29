@@ -1,21 +1,21 @@
 // hotMiddleware.js
+const hotMiddleware = require('webpack-hot-middleware');
+const { PassThrough } = require('stream');
 
-const webpackHot = require('webpack-hot-middleware');
-const PassThrough = require('stream').PassThrough;
-
-const hotMiddleware = (compiler, opts) => {
-	const middleware = webpackHot(compiler, opts);
-	return async (ctx, next) => {
+module.exports = (compiler, opts) => {
+	const middleware = hotMiddleware(compiler, opts);
+	return async(ctx, next) => {
 		const stream = new PassThrough();
 		ctx.body = stream;
-		await middleware(ctx.req, Object.assign(ctx.res, {
+		await middleware(ctx.req, {
 			write: stream.write.bind(stream),
-			writeHead: (status, headers) => {
-				ctx.status = status;
+			writeHead: (state, headers) => {
+				ctx.state = state;
 				ctx.set(headers);
-			}
-		}), next);
+			},
+			end: content => {
+				ctx.body = content;
+			},
+		}, next);
 	};
 };
-
-module.exports = hotMiddleware;

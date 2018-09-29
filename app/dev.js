@@ -2,10 +2,10 @@ const path = require('path');
 const Constant = require('./constant');
 const mime = require('mime');
 
+process.setMaxListeners(100000);
 const exts = ['js', 'css', 'woff', 'ttf', 'svg', 'gif', 'png', 'jpg', 'webbp', 'json'];
 const env = process.env.NODE_ENV;
 const readFile = fileName => new Promise((resolve, reject) => {
-	process.send({ action: Constant.EVENT_WEBPACK_FILE_READ, fileName });
 	const handleMsg = msg => {
 		// 收到消息，并且该消息的文件是当前需要的文件
 		if (msg && msg.action === Constant.EVENT_WEBPACK_MESSAGE_FILE && msg.fileName === fileName) {
@@ -14,6 +14,7 @@ const readFile = fileName => new Promise((resolve, reject) => {
 		}
 	};
 	process.on('message', handleMsg);
+	process.send({ action: Constant.EVENT_WEBPACK_FILE_READ, fileName });
 	// 超过5s拿不出数据，认为没拿到
 	setTimeout(() => {
 		resolve('');
