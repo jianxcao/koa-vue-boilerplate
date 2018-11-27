@@ -57,7 +57,7 @@ App
   * 通过co模块扩展toAsyncFunction方法
   * 通过co模块扩展toPromise方法
   * 扩展extend/application下的所有对象
-  * 通过koa-view中间件扩展view相关方法，属性包括 （render方法，renderView方法，renderString方法，view属性）
+  * 通过koa-view中间件扩展view相关方法，属性包括 (render方法，renderView方法，renderString方法，view属性)
   * 通过koa-vue-view扩展vue属性，可以获取vue编译引擎的对象
 
 * koa的context对象
@@ -88,8 +88,41 @@ App
 
 ## node调试使用
 
-## 日志说明
+### vscode
+- .vscode目录已经生成，可以直接用vscode的调试功能进行调试
 
-## 编译说明
+### chrome远程调试
 
-##假数据模拟
+1. 启动命令 `npm run debug`
+2. 打开谷歌浏览器的chrome://inspect
+3. 在其中找到Dev tools for node打开后调试
+
+> 也可以安装chrome的插件NIM，用这个插件进行快捷调试
+
+## 热更新说明
+
+请参考 [热更新](https://zhuanlan.zhihu.com/p/30623057)
+
+## vue模板解析说明
+
+### 中间件 `koa-view`
+
+- 这个中间件是个壳子中间件，他会对外提供view(application上)对象，view对象会根据文件后缀去appliaction对象上找不同的渲染引擎
+
+- 并且会对不同的模板渲染引擎做出规范，渲染引擎应该有 render和renderString方法
+
+### 中间件 `koa-vue-view`
+
+- 真正的vue模板渲染干活的中间件
+
+- engine.js 负责真正的模板渲染
+
+- view.js 负责向koa-view中间件提供渲染的 render，和renderString方法
+
+### 运行流程
+
+1. 调用`ctx.render()`方法
+2. `render`方法是由`koa-view注入的`， `koa-view`的render方法会去找view对象
+3. view 对象会根据当前后缀的不同找到对应的渲染引擎(就是koa-vue-view/view.js的实列对象)
+4. koa-vue-view/view的实例会去调用koa-vue-view/engine然后去解析模板，并返回字符串
+5. 在engine解析模板的时候，会调用koa-vue-view/resource, 像模板中注入要加载的js,css,font等资源，同时注入`window.INIT_STATE`表示整个应用的初始state
