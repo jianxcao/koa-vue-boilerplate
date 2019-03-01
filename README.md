@@ -53,7 +53,7 @@ App
 
 * koa的application对象
   * 扩展config对象，表示整个应用的配置
-  * 扩展logger对象，可以渠道日志对象
+  * 扩展logger对象，可以取到日志对象
   * 通过co模块扩展toAsyncFunction方法
   * 通过co模块扩展toPromise方法
   * 扩展extend/application下的所有对象
